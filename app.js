@@ -1,9 +1,9 @@
 require("dotenv").config();
 
 // # INIT EXPRESS
+const { HOST_PORT, HOST_DOMAIN } = process.env;
 const express = require("express");
 const app = express();
-const { HOST_PORT, HOST_DOMAIN } = process.env;
 
 //*START LISTENING
 app.listen(HOST_PORT, () => {
