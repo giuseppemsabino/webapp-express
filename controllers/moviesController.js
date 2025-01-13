@@ -84,7 +84,7 @@ function update(req,res){
 
 const generateCover = (coverName) => {
   const { HOST_PORT, HOST_DOMAIN } = process.env;
-  `${HOST_DOMAIN}:${HOST_PORT}/public/img/${coverName}`;
+ return `${HOST_DOMAIN}:${HOST_PORT}/public/img/${coverName}`;
   
 };
 // console.log(generateCover);
