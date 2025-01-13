@@ -25,9 +25,11 @@ function index(req, res) {
 
 
     const movies = results.map((movie) => ({
-      ...movie,
-      //    image: generateCover(movie.image),
-    }));
+       ...movie,
+        image: generateCover(movie.image),
+      }));
+      console.log(movies);
+      
 
     res.json({
       message: "ok",
@@ -52,21 +54,39 @@ function show(req, res) {
             })
             
         };
-
         const [movie] = results
-
         
-    res.json({
-        message: "ok",
-        movie,
-      });
-    })
+        res.json({
+            message: "ok",
+            movie,
+        });
+    });
     
+}
+
+function update(req,res){
+
+    const sql= `UPDATE movies.movies SET image = '' WHERE (id= ?);`
+    connection.query(sql, [], (err,results)=>{
+        if (err){
+            console.log(err);
+    
+            return res.status(500).json({
+                status: "KO",
+                message: 'Database query failed'
+            })
+            
+        };
+    });
+
+
 }
 
 const generateCover = (coverName) => {
   const { HOST_PORT, HOST_DOMAIN } = process.env;
-  `${HOST_DOMAIN}:${HOST_PORT}/img/${coverName}`;
+  `${HOST_DOMAIN}:${HOST_PORT}/public/img/${coverName}`;
+  
 };
+// console.log(generateCover);
 
 module.exports = { index, show };
