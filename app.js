@@ -1,15 +1,23 @@
 require("dotenv").config();
 
 // *INIT EXPRESS
-const { HOST_PORT, HOST_DOMAIN } = process.env;
 const express = require("express");
-const cors = require('cors')
+const path = require("path");
 const app = express();
+const cors = require('cors')
+const { HOST_PORT, HOST_DOMAIN, APP_FRONTEND_URL } = process.env;
+
+// !CORSE CONFIG
+var corsOptions = {
+  origin: APP_FRONTEND_URL,
+  optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
+}
 
 // ! middlewares
-app.use(cors())
+app.use(cors(corsOptions))
 app.use(express.json());
-app.use(express.static("public"));
+app.use("/public", express.static(path.join(__dirname, "public")));
+
 
 // ! ROUTERS
 const moviesRouter = require("./routers/moviesRouters");
