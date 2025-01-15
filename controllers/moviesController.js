@@ -64,10 +64,13 @@ function show(req, res) {
     
 }
 
-function update(req,res){
+function createReview(req,res){
 
-    const sql= `UPDATE movies.movies SET image = '' WHERE (id= ?);`
-    connection.query(sql, [], (err,results)=>{
+  const sql = `
+  INSERT INTO reviews (movie_id, name, vote, text)
+  VALUES (?, ?, ?, ?)
+`;
+    connection.query(sql, [movie_id, name, vote, text], (err,results)=>{
         if (err){
             console.log(err);
     
@@ -89,4 +92,4 @@ const generateCover = (coverName) => {
 };
 // console.log(generateCover);
 
-module.exports = { index, show };
+module.exports = { index, show, createReview };
